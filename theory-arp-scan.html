@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARP Scan - Teoría</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>ARP Scan - Descubrimiento de Hosts en Red Local</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="dashboard.html">Máquinas Resueltas</a></li>
+                <li><a href="theory.html">Teoría</a></li>
+                <li><a href="writeup.html">Nuevo Write-up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <article class="theory-content">
+            <section class="theory-intro">
+                <h2>Descripción Técnica</h2>
+                <p>ARP Scan es una herramienta para descubrir hosts activos en una red local mediante el protocolo ARP (Address Resolution Protocol). A diferencia de herramientas como Nmap que envían paquetes a nivel de red, ARP Scan opera a nivel de enlace de datos, lo que lo hace muy eficiente en redes locales.</p>
+            </section>
+
+            <section class="theory-details">
+                <h2>Cuándo se Usa</h2>
+                <ul>
+                    <li>Descubrimiento inicial en redes locales</li>
+                    <li>Cuando los escaneos ICMP están bloqueados</li>
+                    <li>Identificación rápida de dispositivos en la red</li>
+                    <li>Auditorías de red interna</li>
+                    <li>Detección de dispositivos no autorizados</li>
+                </ul>
+
+                <h2>Ventajas</h2>
+                <ul>
+                    <li>Muy rápido en redes locales</li>
+                    <li>No requiere privilegios root en muchos casos</li>
+                    <li>Funciona incluso con firewalls activos</li>
+                    <li>Detecta hosts que no responden a ping</li>
+                    <li>Proporciona direcciones MAC</li>
+                </ul>
+            </section>
+
+            <section class="theory-commands">
+                <h2>Comandos Clave</h2>
+                
+                <h3>Escaneo Básico</h3>
+                <div class="code-block">
+                    <pre><code># Escaneo de red completa
+arp-scan 192.168.1.0/24
+
+# Escaneo con interfaz específica
+arp-scan -I eth0 192.168.1.0/24
+
+# Escaneo de rango específico
+arp-scan 192.168.1.1-192.168.1.100</code></pre>
+                </div>
+
+                <h3>Opciones Avanzadas</h3>
+                <div class="code-block">
+                    <pre><code># Mostrar información de fabricante
+arp-scan --localnet --retry=5 --timeout=1000
+
+# Usar archivo de direcciones MAC
+arp-scan --file=mac-vendors.txt 192.168.1.0/24
+
+# Modo verbose para debugging
+arp-scan -v 192.168.1.0/24
+
+# Especificar dirección MAC fuente
+arp-scan --srcaddr=AA:BB:CC:DD:EE:FF 192.168.1.0/24</code></pre>
+                </div>
+
+                <h3>Alternativas</h3>
+                <div class="code-block">
+                    <pre><code># Con arp-scan (instalación específica)
+sudo apt install arp-scan
+arp-scan -l
+
+# Con arp (comando nativo)
+arp -a
+
+# Con nmap (ARP scan)
+nmap -sn 192.168.1.0/24
+
+# Con netdiscover
+netdiscover -i eth0 -r 192.168.1.0/24</code></pre>
+                </div>
+            </section>
+
+            <section class="theory-examples">
+                <h2>Ejemplos de Uso</h2>
+                
+                <h3>Escaneo Completo</h3>
+                <div class="code-block">
+                    <pre><code># Escaneo completo con información de fabricante
+sudo arp-scan -I eth0 --localnet --retry=3</code></pre>
+                </div>
+
+                <h3>Interpretación de Resultados</h3>
+                <div class="code-block">
+                    <pre><code>Interface: eth0, type: EN10MB, MAC: 08:00:27:aa:bb:cc, IPv4: 192.168.1.100
+Starting arp-scan 1.10.0 with 256 hosts (https://github.com/royhills/arp-scan)
+192.168.1.1     08:00:27:11:22:33       Cisco Systems, Inc.
+192.168.1.15    52:54:00:aa:bb:cc       QEMU virtual NIC
+192.168.1.50    aa:bb:cc:dd:ee:ff       (Unknown: locally administered)
+192.168.1.100   08:00:27:aa:bb:cc       PCS Systemtechnik GmbH
+
+4 packets received by filter, 0 packets dropped by kernel
+Ending arp-scan 1.10.0: 256 hosts scanned in 2.120 seconds (120.75 hosts/sec). 4 responded</code></pre>
+                    <p><strong>Información importante:</strong></p>
+                    <ul>
+                        <li><strong>IP:</strong> Dirección del host</li>
+                        <li><strong>MAC:</strong> Dirección física del dispositivo</li>
+                        <li><strong>Fabricante:</strong> Identifica el tipo de dispositivo</li>
+                        <li><strong>Locally administered:</strong> MAC modificada (puede ser sospechosa)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="theory-mitigation">
+                <h2>Buenas Prácticas</h2>
+                <ul>
+                    <li>Usar en combinación con otras herramientas</li>
+                    <li>Documentar dispositivos conocidos</li>
+                    <li>Buscar direcciones MAC sospechosas</li>
+                    <li>Realizar escaneos periódicos para detectar cambios</li>
+                    <li>Considerar el impacto en la red</li>
+                </ul>
+
+                <h2>Mitigaciones</h2>
+                <ul>
+                    <li>Segmentación de red</li>
+                    <li>Port Security en switches</li>
+                    <li>Monitorización de ARP</li>
+                    <li>Listas de control de acceso (ACL)</li>
+                </ul>
+            </section>
+
+            <section class="related-writeups">
+                <h2>Write-ups Relacionados</h2>
+                <div id="arp-writeups-list"></div>
+            </section>
+
+            <section class="theory-references">
+                <h2>Referencias</h2>
+                <ul>
+                    <li><a href="https://github.com/royhills/arp-scan" target="_blank">ARP Scan GitHub</a></li>
+                    <li><a href="https://www.kali.org/tools/arp-scan/" target="_blank">Kali Tools - ARP Scan</a></li>
+                    <li><a href="https://linux.die.net/man/1/arp-scan" target="_blank">ARP Scan Man Page</a></li>
+                </ul>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>Cuaderno Personal de Ciberseguridad &copy; 2025</p>
+        <p class="warning">Recuerda redactar información sensible antes de publicar</p>
+    </footer>
+
+    <script src="js/theory.js"></script>
+</body>
+</html>

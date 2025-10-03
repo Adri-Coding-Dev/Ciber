@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teoría - Cuaderno de Ciberseguridad</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Teoría de Ciberseguridad</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="dashboard.html">Máquinas Resueltas</a></li>
+                <li><a href="theory.html">Teoría</a></li>
+                <li><a href="writeup.html">Nuevo Write-up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="theory-categories">
+            <h2>Vectores de Ataque</h2>
+            <div class="theory-grid">
+                <div class="theory-card">
+                    <h3>SQL Injection</h3>
+                    <p>Inyección de código SQL malicioso en consultas de base de datos.</p>
+                    <a href="theory-sqli.html" class="btn">Ver Detalles</a>
+                </div>
+                <div class="theory-card">
+                    <h3>XSS (Cross-Site Scripting)</h3>
+                    <p>Ejecución de scripts maliciosos en el navegador de la víctima.</p>
+                    <a href="theory-xss.html" class="btn">Ver Detalles</a>
+                </div>
+                <div class="theory-card">
+                    <h3>XXE (XML External Entity)</h3>
+                    <p>Ataque contra procesadores XML que permite acceso a archivos del sistema.</p>
+                    <a href="theory-xxe.html" class="btn">Ver Detalles</a>
+                </div>
+                <div class="theory-card">
+                    <h3>SSRF (Server-Side Request Forgery)</h3>
+                    <p>Forzar al servidor a realizar peticiones a recursos internos o externos.</p>
+                    <a href="theory-ssrf.html" class="btn">Ver Detalles</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="theory-categories">
+            <h2>Enumeración y Herramientas</h2>
+            <div class="theory-grid">
+                <div class="theory-card">
+                    <h3>Nmap</h3>
+                    <p>Herramienta de escaneo de red y descubrimiento de servicios.</p>
+                    <a href="theory-nmap.html" class="btn">Ver Detalles</a>
+                </div>
+                <div class="theory-card">
+                    <h3>Gobuster</h3>
+                    <p>Herramienta de fuzzing de directorios y subdominios.</p>
+                    <a href="theory-gobuster.html" class="btn">Ver Detalles</a>
+                </div>
+                <div class="theory-card">
+                    <h3>ARP Scan</h3>
+                    <p>Descubrimiento de hosts en la red local mediante ARP.</p>
+                    <a href="theory-arp-scan.html" class="btn">Ver Detalles</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Cuaderno Personal de Ciberseguridad &copy; 2025</p>
+        <p class="warning">Recuerda redactar información sensible antes de publicar</p>
+    </footer>
+</body>
+</html>

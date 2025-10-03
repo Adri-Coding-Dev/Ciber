@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gobuster - Teoría</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Gobuster - Directory/Subdomain Brute-forcing</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="dashboard.html">Máquinas Resueltas</a></li>
+                <li><a href="theory.html">Teoría</a></li>
+                <li><a href="writeup.html">Nuevo Write-up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <article class="theory-content">
+            <section class="theory-intro">
+                <h2>Descripción Técnica</h2>
+                <p>Gobuster es una herramienta escrita en Go utilizada para realizar fuerza bruta contra servicios web. Puede descubrir directorios, archivos, subdominios y parámetros S3 buckets. Es rápida, eficiente y ampliamente utilizada en pruebas de penetración.</p>
+            </section>
+
+            <section class="theory-details">
+                <h2>Cuándo se Usa</h2>
+                <ul>
+                    <li>Fase de enumeración web</li>
+                    <li>Descubrimiento de contenido oculto</li>
+                    <li>Identificación de subdominios</li>
+                    <li>Enumeración de S3 buckets</li>
+                    <li>Búsqueda de archivos de respaldo</li>
+                </ul>
+
+                <h2>Módulos Principales</h2>
+                <ul>
+                    <li><strong>dir:</strong> Fuerza bruta de directorios y archivos</li>
+                    <li><strong>dns:</strong> Fuerza bruta de subdominios</li>
+                    <li><strong>s3:</strong> Enumeración de buckets S3</li>
+                    <li><strong>vhost:</strong> Fuerza bruta de virtual hosts</li>
+                </ul>
+            </section>
+
+            <section class="theory-commands">
+                <h2>Comandos Clave</h2>
+                
+                <h3>Enumeración de Directorios</h3>
+                <div class="code-block">
+                    <pre><code># Escaneo básico
+gobuster dir -u http://example.com -w /usr/share/wordlists/dirb/common.txt
+
+# Con extensiones específicas
+gobuster dir -u http://example.com -w wordlist.txt -x php,html,txt
+
+# Con usuario-agente personalizado
+gobuster dir -u http://example.com -w wordlist.txt -a "Mozilla/5.0"
+
+# Con timeout personalizado
+gobuster dir -u http://example.com -w wordlist.txt -t 50</code></pre>
+                </div>
+
+                <h3>Enumeración de Subdominios</h3>
+                <div class="code-block">
+                    <pre><code># Fuerza bruta de subdominios
+gobuster dns -d example.com -w /usr/share/wordlists/SecLists/Discovery/DNS/subdomains-top1million-5000.txt
+
+# Con servidor DNS específico
+gobuster dns -d example.com -w wordlist.txt -r 8.8.8.8</code></pre>
+                </div>
+
+                <h3>Opciones Avanzadas</h3>
+                <div class="code-block">
+                    <pre><code># Mostrar todos los status codes
+gobuster dir -u http://example.com -w wordlist.txt -s 200,204,301,302,307,401,403
+
+# Excluir códigos específicos
+gobuster dir -u http://example.com -w wordlist.txt --exclude-length 0
+
+# Usar proxy
+gobuster dir -u http://example.com -w wordlist.txt -p http://127.0.0.1:8080</code></pre>
+                </div>
+            </section>
+
+            <section class="theory-examples">
+                <h2>Ejemplos de Uso</h2>
+                
+                <h3>Escaneo Completo</h3>
+                <div class="code-block">
+                    <pre><code># Escaneo completo con extensiones comunes
+gobuster dir -u http://target.com \
+  -w /usr/share/wordlists/dirb/common.txt \
+  -x php,html,txt,js,css,json \
+  -t 50 \
+  -o scan_results.txt</code></pre>
+                </div>
+
+                <h3>Interpretación de Resultados</h3>
+                <div class="code-block">
+                    <pre><code>Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
+===============================================================
+[+] Url:            http://example.com
+[+] Threads:        10
+[+] Wordlist:       common.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Timeout:        10s
+===============================================================
+2025/01/15 10:30:00 Starting gobuster
+===============================================================
+/admin (Status: 301)
+/images (Status: 301)
+/uploads (Status: 301)
+/backup (Status: 200)
+/config (Status: 403)
+===============================================================
+2025/01/15 10:30:45 Finished
+===============================================================</code></pre>
+                    <p><strong>Status codes importantes:</strong></p>
+                    <ul>
+                        <li><strong>200:</strong> Recurso encontrado</li>
+                        <li><strong>301/302:</strong> Redirección (puede indicar directorio)</li>
+                        <li><strong>403:</strong> Prohibido (recurso existe pero sin acceso)</li>
+                        <li><strong>401:</strong> No autorizado (requiere autenticación)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="theory-mitigation">
+                <h2>Buenas Prácticas</h2>
+                <ul>
+                    <li>Usar wordlists apropiadas para el contexto</li>
+                    <li>Ajustar el número de threads según la red</li>
+                    <li>Probar diferentes extensiones de archivo</li>
+                    <li>Guardar resultados para análisis posterior</li>
+                    <li>Combinar con otras herramientas de enumeración</li>
+                </ul>
+            </section>
+
+            <section class="related-writeups">
+                <h2>Write-ups Relacionados</h2>
+                <div id="gobuster-writeups-list"></div>
+            </section>
+
+            <section class="theory-references">
+                <h2>Referencias</h2>
+                <ul>
+                    <li><a href="https://github.com/OJ/gobuster" target="_blank">Gobuster GitHub</a></li>
+                    <li><a href="https://www.kali.org/tools/gobuster/" target="_blank">Kali Tools - Gobuster</a></li>
+                    <li><a href="https://cheatsheet.haax.fr/web-pentest/brute-force/gobuster-cheatsheet/" target="_blank">Gobuster Cheat Sheet</a></li>
+                </ul>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>Cuaderno Personal de Ciberseguridad &copy; 2025</p>
+        <p class="warning">Recuerda redactar información sensible antes de publicar</p>
+    </footer>
+
+    <script src="js/theory.js"></script>
+</body>
+</html>

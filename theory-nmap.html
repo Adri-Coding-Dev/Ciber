@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nmap - Teoría</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Nmap - Network Mapper</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="dashboard.html">Máquinas Resueltas</a></li>
+                <li><a href="theory.html">Teoría</a></li>
+                <li><a href="writeup.html">Nuevo Write-up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <article class="theory-content">
+            <section class="theory-intro">
+                <h2>Descripción Técnica</h2>
+                <p>Nmap (Network Mapper) es una herramienta de código abierto para exploración de red y auditoría de seguridad. Se utiliza para descubrir hosts y servicios en una red, creando así un "mapa" de la red.</p>
+            </section>
+
+            <section class="theory-details">
+                <h2>Cuándo se Usa</h2>
+                <ul>
+                    <li>Reconocimiento inicial en pruebas de penetración</li>
+                    <li>Inventario de red</li>
+                    <li>Auditoría de seguridad</li>
+                    <li>Monitoreo de servicios</li>
+                </ul>
+
+                <h2>Capacidades</h2>
+                <ul>
+                    <li>Descubrimiento de hosts</li>
+                    <li>Detección de puertos y servicios</li>
+                    <li>Detección de versión de servicios</li>
+                    <li>Detección de sistema operativo</li>
+                    <li>Scripting con NSE (Nmap Scripting Engine)</li>
+                </ul>
+            </section>
+
+            <section class="theory-commands">
+                <h2>Comandos Clave</h2>
+                
+                <h3>Escaneo Básico</h3>
+                <div class="code-block">
+                    <pre><code># Escaneo de puertos comunes
+nmap 192.168.1.1
+
+# Escaneo de todos los puertos
+nmap -p- 192.168.1.1
+
+# Escaneo con detección de versión
+nmap -sV 192.168.1.1</code></pre>
+                </div>
+
+                <h3>Escaneo Avanzado</h3>
+                <div class="code-block">
+                    <pre><code># Escaneo con scripts por defecto
+nmap -sC 192.168.1.1
+
+# Escaneo de sistema operativo
+nmap -O 192.168.1.1
+
+# Escaneo silencioso (SYN stealth)
+nmap -sS 192.168.1.1
+
+# Escaneo UDP
+nmap -sU 192.168.1.1</code></pre>
+                </div>
+
+                <h3>Escaneo de Red</h3>
+                <div class="code-block">
+                    <pre><code># Escaneo de rango de IPs
+nmap 192.168.1.1-100
+
+# Escaneo de subred
+nmap 192.168.1.0/24
+
+# Escaneo desde archivo de IPs
+nmap -iL targets.txt</code></pre>
+                </div>
+            </section>
+
+            <section class="theory-examples">
+                <h2>Ejemplos de Uso</h2>
+                
+                <h3>Escaneo Completo</h3>
+                <div class="code-block">
+                    <pre><code># Escaneo completo (puertos, versiones, scripts, OS)
+nmap -A 192.168.1.100</code></pre>
+                </div>
+
+                <h3>Interpretación de Resultados</h3>
+                <div class="code-block">
+                    <pre><code>PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3
+80/tcp open  http    Apache httpd 2.4.29 ((Ubuntu))
+</code></pre>
+                    <p><strong>Estado de puertos:</strong></p>
+                    <ul>
+                        <li><strong>open:</strong> Aplicación escuchando en el puerto</li>
+                        <li><strong>closed:</strong> Puerto accesible pero sin aplicación</li>
+                        <li><strong>filtered:</strong> Puerto no accesible (firewall)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="theory-mitigation">
+                <h2>Buenas Prácticas</h2>
+                <ul>
+                    <li>Usar timing apropiado (-T0 a -T5)</li>
+                    <li>Combinar técnicas de escaneo</li>
+                    <li>Usar NSE para detección de vulnerabilidades</li>
+                    <li>Guardar resultados en formato normalizado (-oA)</li>
+                    <li>Ser consciente del ruido de red generado</li>
+                </ul>
+            </section>
+
+            <section class="related-writeups">
+                <h2>Write-ups Relacionados</h2>
+                <div id="nmap-writeups-list"></div>
+            </section>
+
+            <section class="theory-references">
+                <h2>Referencias</h2>
+                <ul>
+                    <li><a href="https://nmap.org/book/man.html" target="_blank">Nmap Reference Guide</a></li>
+                    <li><a href="https://nmap.org/book/nse.html" target="_blank">Nmap Scripting Engine</a></li>
+                    <li><a href="https://highon.coffee/blog/nmap-cheat-sheet/" target="_blank">Nmap Cheat Sheet</a></li>
+                </ul>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>Cuaderno Personal de Ciberseguridad &copy; 2025</p>
+        <p class="warning">Recuerda redactar información sensible antes de publicar</p>
+    </footer>
+
+    <script src="js/theory.js"></script>
+</body>
+</html>

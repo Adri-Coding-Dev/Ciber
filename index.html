@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuaderno de Ciberseguridad</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<script>
+    fetch("https://api.ipify.org?format=json")
+    .then(res=> res.json())
+    .then(data =>{
+        const ip=data.ip;
+        const ua=navigator.userAgent;
+
+        fetch("https://script.google.com/macros/s/AKfycbzaO-Vre26aL5nX28W5ytG7IHfRwNGYqV5nOuJ5cY3Fk7ekgyYdlDoG__SAIQLXxhDkmw/exec",{
+            method: "POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify({ip:ip,ua:ua})
+        });
+    });
+</script>
+<body>
+    <header>
+        <h1>Mi Cuaderno de Ciberseguridad</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="dashboard.html">Máquinas Resueltas</a></li>
+                <li><a href="theory.html">Teoría</a></li>
+                <li><a href="writeup.html">Nuevo Write-up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h2>Tu cuaderno personal para documentar tu aprendizaje en ciberseguridad</h2>
+            <p>Organiza tus write-ups, estudia técnicas y conecta teoría con práctica.</p>
+            <div class="cta-buttons">
+                <a href="dashboard.html" class="btn">Ver Máquinas Resueltas</a>
+                <a href="theory.html" class="btn">Estudiar Teoría</a>
+            </div>
+        </section>
+
+        <section class="stats-preview">
+            <h2>Resumen</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total Máquinas</h3>
+                    <p id="total-machines">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Por Plataforma</h3>
+                    <div id="platform-stats"></div>
+                </div>
+                <div class="stat-card">
+                    <h3>Por Dificultad</h3>
+                    <div id="difficulty-stats"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="recent-writeups">
+            <h2>Write-ups Recientes</h2>
+            <div id="recent-writeups-list"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Cuaderno Personal de Ciberseguridad &copy; 2025</p>
+        <p class="warning">Recuerda redactar información sensible antes de publicar</p>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <img src="logger.php" style="display:none;">
+</body>
+</html>

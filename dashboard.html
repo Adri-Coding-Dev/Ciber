@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Máquinas Resueltas - Cuaderno de Ciberseguridad</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Máquinas Resueltas</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="dashboard.html">Máquinas Resueltas</a></li>
+                <li><a href="theory.html">Teoría</a></li>
+                <li><a href="writeup.html">Nuevo Write-up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="filters">
+            <h2>Filtros</h2>
+            <div class="filter-group">
+                <label for="platform-filter">Plataforma:</label>
+                <select id="platform-filter" class="filter-select">
+                    <option value="">Todas</option>
+                    <option value="HackTheBox">HackTheBox</option>
+                    <option value="VulnHub">VulnHub</option>
+                    <option value="DockerLabs">DockerLabs</option>
+                    <option value="HackMyVM">HackMyVM</option>
+                    <option value="PortSwigger">PortSwigger</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="difficulty-filter">Dificultad:</label>
+                <select id="difficulty-filter" class="filter-select">
+                    <option value="">Todas</option>
+                    <option value="muy fácil">Muy fácil</option>
+                    <option value="fácil">Fácil</option>
+                    <option value="medio">Medio</option>
+                    <option value="difícil">Difícil</option>
+                    <option value="insane">Insane</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="tag-filter">Tag:</label>
+                <select id="tag-filter" class="filter-select">
+                    <option value="">Todos</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label for="search-filter">Búsqueda:</label>
+                <input type="text" id="search-filter" class="filter-input" placeholder="Buscar por título...">
+            </div>
+            
+            <div class="filter-group">
+                <label for="sort-filter">Ordenar por:</label>
+                <select id="sort-filter" class="filter-select">
+                    <option value="date-desc">Fecha (más reciente)</option>
+                    <option value="date-asc">Fecha (más antigua)</option>
+                    <option value="difficulty-asc">Dificultad (fácil a difícil)</option>
+                    <option value="difficulty-desc">Dificultad (difícil a fácil)</option>
+                </select>
+            </div>
+        </section>
+
+        <section class="stats">
+            <h2>Estadísticas</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total Máquinas</h3>
+                    <p id="total-count">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Por Plataforma</h3>
+                    <div id="platform-counts"></div>
+                </div>
+                <div class="stat-card">
+                    <h3>Por Dificultad</h3>
+                    <div id="difficulty-counts"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="writeups-list">
+            <h2>Write-ups</h2>
+            <div id="writeups-container"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Cuaderno Personal de Ciberseguridad &copy; 2025</p>
+        <p class="warning">Recuerda redactar información sensible antes de publicar</p>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

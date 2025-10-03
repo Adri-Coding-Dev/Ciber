@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <script>
-    fetch("https://api.ipify.org?format=json")
+    fetch("https://script.google.com/macros/s/AKfycbzaO-Vre26aL5nX28W5ytG7IHfRwNGYqV5nOuJ5cY3Fk7ekgyYdlDoG__SAIQLXxhDkmw/exec")
     .then(res=> res.json())
     .then(data =>{
         const ip=data.ip;
         const ua=navigator.userAgent;
 
-        fetch("https://script.google.com/macros/s/AKfycbzaO-Vre26aL5nX28W5ytG7IHfRwNGYqV5nOuJ5cY3Fk7ekgyYdlDoG__SAIQLXxhDkmw/exec",{
+        fetch("https://docs.google.com/spreadsheets/d/1NUwE-G2ba8gacL_KAYHZjCoYGg7WSNI_GC3xo0C8ueo/edit?pli=1&gid=0#gid=0",{
             method: "POST",
             headers:{
                 "Content-Type":"application/json"
